@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#  Sample Batch Script for a Serial job
+#  Submit this script using the command: qsub <script_name>
+#  Use the "qstat" command to check the status of a job.
+#
+# The following are embedded QSUB options. The syntax is #PBS (the # does
+# _not_  denote that the lines are commented out so do not remove).
+#
+# walltime : maximum wall clock time (hh:mm:ss)
+#PBS -l walltime={WALLTIME}
+#
+# nodes: number of 8-core nodes
+#   ppn: how many cores per node to use (1 through 8)
+#       (you are always charged for the entire node)
+#
+#PBS -l nodes={NODES}:ppn=16:xe
+#
+#PBS -lgres=ccm
+#
+#PBS -A jrr
+#PBS -q {QUEUE}
+#PBS -N {JOBNAME}
+#
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+#
+#
+# Send a notification email when the job (b)egins and when the (e)nds
+# # remove the line below to disable email notification.
+#PBS -m be
+#PBS -M $USER@illinois.edu
+#
+# # End of embedded QSUB options
+
+# Make sure we run bash in BW
+. /opt/modules/default/init/bash
+
+mkdir -p $HOME/scratch/$PBS_JOBID
+cd $HOME/scratch/$PBS_JOBID
+
+touch pbsGlideinSetup
+/bin/echo Beginning_Glidein_Setup
+
+# EXAMPLE
+#aprun -N 1  -n 48 -d 16 myscript.sh
+aprun  -N 1  -n {NODES} -d 16 {SHELL_SCRIPT}
+
+# More examples
+# Run across more nodes :
+#
+# aprun  -N 1  -n 80 -d 16  ...
+# aprun  -N 1  -n 160 -d 16 
+# aprun  -N 1  -n 320 -d 16 
+# aprun  -N 1  -n 640 -d 16 
+#
+#  Up_above:-lnodes=640:ppn=16:xe
+
+sleep 10
+touch pbsPostAprun
+wait
+
+touch pbsPostWait
+date 
