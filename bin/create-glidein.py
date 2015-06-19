@@ -128,7 +128,8 @@ if __name__ == "__main__":
     # Check for CONDOR location
     if 'DESGLIDEIN_DIR' not in os.environ.keys():
         exit("ERROR: Please define $DESGLIDEIN_DIR")
-
+    else:
+        DESGLIDEIN_DIR = os.environ['DESGLIDEIN_DIR']
     # Local pbs/sh scripts
     try:
         CONDOR_USER_EXEC   = os.environ['CONDOR_USER_EXEC']
