@@ -17,8 +17,8 @@ export _condor_SBIN={CONDORSTRIPPED_DIR}/sbin
 
 export _condor_LOCAL_DIR=${HOME}/condor_local/desdm/${local_host_name}
 export _condor_NUM_CPUS={NCPU}
-export _condor_UID_DOMAIN=campuscluster.illinois.edu
-export _condor_FILESYSTEM_DOMAIN=campuscluster.illinois.edu
+export _condor_UID_DOMAIN=iforge.ncsa..illinois.edu
+export _condor_FILESYSTEM_DOMAIN=iforge.ncsa.illinois.edu
 export _condor_MAIL=/bin/mail
 export _condor_STARTD_NOCLAIM_SHUTDOWN=1800
 

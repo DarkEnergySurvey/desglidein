@@ -28,6 +28,8 @@ def update_shell_template(template,newfile,args):
     print "# Reading template: %s" % template
     f = open(template,'r')
     fh = f.read()
+    fh = replace_fh(fh,'{DESGLIDEIN_DIR}',subst=os.environ['DESGLIDEIN_DIR'])
+    fh = replace_fh(fh,'{CONDORSTRIPPED_DIR}',subst=os.environ['CONDORSTRIPPED_DIR'])
     fh = replace_fh(fh,'{SUBMIT_SITE}',subst=args.submit_site)
     fh = replace_fh(fh,'{IP_SUBMIT_SITE}',subst=args.ip_submit_site)
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
@@ -83,6 +85,8 @@ def getComputeSite():
         COMPUTE_SITE = 'CC' 
     elif address.find('h2ologin') >= 0:
         COMPUTE_SITE = 'BW'
+    elif address.find('iforge') >= 0:
+        COMPUTE_SITE = 'iForge'
     else:
         sys.exit('ERROR: Compute Site not defined for glide in')
     return COMPUTE_SITE
@@ -101,7 +105,6 @@ def cmdline():
     parser.add_argument("--queue", action="store", default=None,
                         help="Queue Name (i.e.: ncsa, test, normal, high, low, debug, etc)")
     parser.add_argument("--submit_site", action="store", default='dessub',
-                        choices=['dessub','descmp1'],
                         help="Name of Submit Site")
     parser.add_argument("--compute_site", action="store", default=None,
                         help="Name of Compute Site")
@@ -117,6 +120,7 @@ def cmdline():
     if not args.queue:
         if args.compute_site == 'CC': args.queue = 'ncsa'
         if args.compute_site == 'BW': args.queue = 'normal'
+        if args.compute_site == 'iForge': args.queue = 'normal'
         
     return args
 

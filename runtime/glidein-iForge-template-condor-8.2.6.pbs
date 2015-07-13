@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#  Sample Batch Script for a Serial job
+#  Submit this script using the command: qsub <script_name>
+#  Use the "qstat" command to check the status of a job.
+#
+# The following are embedded QSUB options. The syntax is #PBS (the # does
+# _not_  denote that the lines are commented out so do not remove).
+#
+# walltime : maximum wall clock time (hh:mm:ss)
+#PBS -l walltime={WALLTIME}
+#
+# nodes: number of 8-core nodes
+#   ppn: how many cores per node to use (1 through 8)
+#       (you are always charged for the entire node)
+#
+#PBS -l nodes={NODES}:ppn=20
+#
+# export all my environment variables to the job
+### #PBS -V
+#
+# job name (default = name of script file)
+#PBS -N {JOBNAME}
+#PBS -q {QUEUE}
+
+# Send a notification email when the job (b)egins and when the (e)nds
+# # remove the line below to disable email notification.
+#PBS -m be
+#
+# End of embedded QSUB options
+
+
+env | grep PBS
+env | grep USER
+
+/bin/echo DATE
+date
+
+/bin/echo HOSTNAME
+hostname -f
+
+/bin/echo DEFAULT_REMOTE_DIR
+pwd
+
+# Working directory for this PBS Job
+mkdir -p ${HOME}/scratch/$PBS_JOBID
+cd ${HOME}/scratch/$PBS_JOBID
+
+touch pbsGlideinSetup
+/bin/echo Beginning_Glidein_Setup
+
+#
+# Choose a script to start the glidein
+#
+#/projects/ncsa/des/condor/scripts/worker-dessub-condor_8_2_6.sh
+#/projects/ncsa/des/condor/scripts/worker-descmp1-condor_8_2_6.sh
+{SHELL_SCRIPT}
+
+touch pbsPostScript
+wait
+
+touch pbsPostWait
+sleep 60
+
+
