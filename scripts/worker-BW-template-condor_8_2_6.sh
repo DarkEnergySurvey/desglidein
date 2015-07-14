@@ -9,17 +9,14 @@ echo LOCAL
 echo $local_host_name 
 
 #####################################################################################################
-# Here we use the already setup EUPS variables:
+# Here we use the already setup EUPS variables and replace them as strings
 #    CONDORSTRIPPED_DIR
 #    DESGLIDEIN_DIR
-# Otherwise we need to do:
-#   export CONDORSTRIPPED_DIR=/path-to/condor-8.2.6-x86_64_RedHat6-stripped
-#   export DESGLIDEIN_DIR=/path-to/desglidein
 #####################################################################################################
-export CONDOR_CONFIG=${DESGLIDEIN_DIR}/config/worker-general-condor_8_2_6.config
-export _condor_RELEASE_DIR=${CONDORSTRIPPED_DIR}
-export _condor_SHARED_PORT=${CONDORSTRIPPED_DIR}/libexec/condor_shared_port
-export _condor_SBIN=${CONDORSTRIPPED_DIR}/sbin
+export CONDOR_CONFIG={DESGLIDEIN_DIR}/config/worker-general-condor_8_2_6.config
+export _condor_RELEASE_DIR={CONDORSTRIPPED_DIR}
+export _condor_SHARED_PORT={CONDORSTRIPPED_DIR}/libexec/condor_shared_port
+export _condor_SBIN={CONDORSTRIPPED_DIR}/sbin
 
 export _condor_LOCAL_DIR=${HOME}/condor_local/desdm/${local_host_name}
 export _condor_NUM_CPUS={NCPU}
