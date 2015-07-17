@@ -33,7 +33,7 @@
 env | grep PBS
 env | grep USER
 
-# Get the nodes names
+# Get the nodes names and put the in random tmp file
 cat $PBS_NODEFILE
 uniq $PBS_NODEFILE > /tmp/pbs.nodes.file.$$
 

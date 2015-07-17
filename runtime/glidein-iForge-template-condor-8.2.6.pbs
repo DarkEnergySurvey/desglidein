@@ -26,6 +26,7 @@
 # Send a notification email when the job (b)egins and when the (e)nds
 # # remove the line below to disable email notification.
 #PBS -m be
+#PBS -M $USER@illinois.edu
 #
 # End of embedded QSUB options
 
@@ -33,7 +34,7 @@
 env | grep PBS
 env | grep USER
 
-# Get the nodes names
+# Get the nodes names and put the in random tmp file
 cat $PBS_NODEFILE
 uniq $PBS_NODEFILE > /tmp/pbs.nodes.file.$$
 
