@@ -29,7 +29,7 @@
 # Send a notification email when the job (b)egins and when the (e)nds
 # # remove the line below to disable email notification.
 #PBS -m be
-#PBS -M $USER@ncsa.illinois.edu
+#PBS -M {USER}@ncsa.illinois.edu
 #
 # # End of embedded QSUB options
 

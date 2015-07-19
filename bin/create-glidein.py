@@ -41,7 +41,7 @@ def update_shell_template(template,newfile,args):
     print "# New file: %s" % newfile
     return
 
-def update_shell_template_alt(template,newfile,**kwargs):
+def update_template_generic(template,newfile,**kwargs):
     print "# Reading template: %s" % template
 
     f = open(template,'r')
@@ -66,7 +66,7 @@ def update_pbs_template(template,newfile,args):
     fh = replace_fh(fh,'{JOBNAME}',subst=args.submit_site+time.strftime("-%Y%b%d"))
     fh = replace_fh(fh,'{WALLTIME}',subst=args.walltime)
     fh = replace_fh(fh,'{SHELL_SCRIPT}',subst=args.shell_script)
-
+    fh = replace_fh(fh,'{USER}',subst=args.user)
     n = open(newfile,'w')
     n.write(fh)
     n.close()
@@ -108,7 +108,9 @@ def cmdline():
                         help="Name of Submit Site")
     parser.add_argument("--compute_site", action="store", default=None,
                         help="Name of Compute Site")
-
+    parser.add_argument("--user", action="store", default=os.environ['USER'],
+                        help="Change user to notify via email [default is $USER]")
+    
     args = parser.parse_args()
     # Add extra args to namespace
     args.walltime = get_walltime(args.time*3600)
