@@ -6,7 +6,7 @@ bin_files = glob.glob("bin/*.py")
 
 # The main call
 setup(name='desglidein',
-      version ='0.1.1',
+      version ='0.1.3',
       license = "GPL",
       description = "Python function to create gliden in from condos/shell/pbs libraries",
       author = "Felipe Menanteau",
