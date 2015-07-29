@@ -151,13 +151,13 @@ if __name__ == "__main__":
     
     # Shell template
     sh_template = os.path.join(DESGLIDEIN_DIR,"scripts/worker-%s-template-condor_8_2_6.sh" % args.compute_site)
-    sh_script   = os.path.join(CONDOR_USER_EXEC,"worker-%s-%scpu-condor_8_2_6.sh" % (args.submit_site,args.ncpu))
+    sh_script   = os.path.join(CONDOR_USER_EXEC,"worker-%s-%shr-%scpu-%s-condor_8_2_6.sh" % (args.submit_site,args.time,args.ncpu,args.queue))
     update_shell_template(sh_template,sh_script,args)
 
     # PBS template
     args.shell_script=sh_script
     pbs_template   = os.path.join(DESGLIDEIN_DIR,"runtime/glidein-%s-template-condor-8.2.6.pbs" % args.compute_site)
-    pbs_script     = os.path.join(CONDOR_USER_EXEC,"glidein-%s-%shr-%snodes-%scpu-condor-8.2.6.pbs" % (args.submit_site,args.time,args.nodes,args.ncpu))
+    pbs_script     = os.path.join(CONDOR_USER_EXEC,"glidein-%s-%shr-%snodes-%scpu-%s-condor-8.2.6.pbs" % (args.submit_site,args.time,args.nodes,args.ncpu,args.queue))
     update_pbs_template(pbs_template,pbs_script,args)
 
     print "\nTo start glidein:\n"
