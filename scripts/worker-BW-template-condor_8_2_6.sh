@@ -23,7 +23,7 @@ export _condor_NUM_CPUS={NCPU}
 export _condor_UID_DOMAIN=ncsa.illinois.edu
 export _condor_FILESYSTEM_DOMAIN=ncsa.illinois.edu
 export _condor_MAIL=/bin/mail
-export _condor_STARTD_NOCLAIM_SHUTDOWN=1800
+export _condor_STARTD_NOCLAIM_SHUTDOWN={NO_CLAIM_SHUTDOWN}
 
 # Extra conf for IP address
 export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE} 
@@ -50,14 +50,26 @@ else
   mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/log
   mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/execute
   echo "Script_Launching condor master";
-  ${_condor_SBIN}/condor_master
+  ${_condor_SBIN}/condor_master -f
+
+  #################################
+  # Alternative method with PID
+  #pidfile=/tmp/${local_host_name}-condor.pid
+  #echo "Will write PID to:${pidfile}"
+  #${_condor_SBIN}/condor_master -pidfile ${pidfile}
+  #echo "waiting 10s for condor_master to start"
+  #sleep 10
+  #PID=`cat ${pidfile}`
+  #echo "PID:${PID}"
+  #################################
+
 fi
 
-echo WAITING 
-sleep 120
-
-tail -f  ${HOME}/condor_local/desdm/${local_host_name}/log/MasterLog
-
-wait
-
+#####################################
+# Alternative method with PID
+#while [[ ( -d /proc/${PID} ) ]]; do
+#    sleep 1
+#    echo "waiting for ${PID}"
+#done
+#####################################
 

@@ -33,6 +33,7 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{SUBMIT_SITE}',subst=args.submit_site)
     fh = replace_fh(fh,'{IP_SUBMIT_SITE}',subst=args.ip_submit_site)
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
+    fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
 
     n = open(newfile,'w')
     n.write(fh)
@@ -110,7 +111,8 @@ def cmdline():
                         help="Name of Compute Site")
     parser.add_argument("--user", action="store", default=os.environ['USER'],
                         help="Change user to notify via email [default is $USER]")
-    
+    parser.add_argument("--noclaim_shutdown", action="store", default=1800,
+                        help="Pass condor's STARTD_NOCLAIM_SHUTDOWN in sec [default is 1800s (30min)]")
     args = parser.parse_args()
     # Add extra args to namespace
     args.walltime = get_walltime(args.time*3600)
