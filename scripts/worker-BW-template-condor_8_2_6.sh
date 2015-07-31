@@ -32,10 +32,6 @@ export _condor_CCB_ADDRESS={IP_SUBMIT_SITE}
 # Hack to add extra missing libs
 export LD_LIBRARY_PATH=/u/sciteam/daues/condor/pcre/install/lib:$LD_LIBRARY_PATH
 
-# Make sure we have a place to write
-mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/log
-mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/execute
-
 psef=`ps -ef | grep condor`
 echo psef
 echo $psef
@@ -50,6 +46,7 @@ else
   mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/log
   mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/execute
   echo "Script_Launching condor master";
+  echo ${_condor_SBIN}/condor_master
   ${_condor_SBIN}/condor_master -f
 
   #################################
@@ -64,6 +61,8 @@ else
   #################################
 
 fi
+
+echo "Finishing worker"
 
 #####################################
 # Alternative method with PID
