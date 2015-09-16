@@ -99,7 +99,7 @@ def cmdline():
     # The positional arguments
     parser.add_argument("time", action="store",default=None,type=float,
                         help="Total required time in hours (can be a fraction)")
-    parser.add_argument("--ncpu", action="store", default=12, type=int,
+    parser.add_argument("--ncpu", action="store", default=None, type=int,
                         help="Number of CPUs per node")
     parser.add_argument("--nodes", action="store", default=1, type=int,
                         help="Number of nodes to request")
@@ -121,10 +121,22 @@ def cmdline():
     if not args.compute_site:
         args.compute_site = getComputeSite()
 
+
+    # Default queue names per site
     if not args.queue:
-        if args.compute_site == 'CC': args.queue = 'ncsa'
-        if args.compute_site == 'BW': args.queue = 'normal'
+        if args.compute_site == 'CC':     args.queue = 'ncsa'
+        if args.compute_site == 'BW':     args.queue = 'normal'
         if args.compute_site == 'iForge': args.queue = 'normal'
+
+    # Set the defaults NCPU for compute sites
+    if not args.ncpu:
+        if args.compute_site == 'CC':     args.ncpu =  8 # Please revise
+        if args.compute_site == 'BW':     args.ncpu = 16
+        if args.compute_site == 'iForge':
+            if args.queue = 'normal':    args.ncpu = 24
+            if args.queue = 'big_mem':   args.ncpu = 20
+            if args.queue = 'super_mem': args.ncpu = 60
+            if args.queue = 'amd':       args.ncpu = 32
         
     return args
 
