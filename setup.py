@@ -2,7 +2,8 @@ import distutils
 from distutils.core import setup
 import glob
 
-bin_files = glob.glob("bin/*.py")
+#bin_files = glob.glob("bin/*")
+bin_files = ["bin/create-glidein",]
 
 # The main call
 setup(name='desglidein',
