@@ -133,10 +133,10 @@ def cmdline():
         if args.compute_site == 'CC'     : args.ncpu =  8 # Please revise
         if args.compute_site == 'BW'     : args.ncpu = 16
         if args.compute_site == 'iForge':
-            if args.queue = 'normal':    args.ncpu = 24
-            if args.queue = 'big_mem':   args.ncpu = 20
-            if args.queue = 'super_mem': args.ncpu = 60
-            if args.queue = 'amd':       args.ncpu = 32
+            if args.queue == 'normal':    args.ncpu = 24
+            if args.queue == 'big_mem':   args.ncpu = 20
+            if args.queue == 'super_mem': args.ncpu = 60
+            if args.queue == 'amd':       args.ncpu = 32
         
     return args
 
