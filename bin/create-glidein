@@ -124,14 +124,14 @@ def cmdline():
 
     # Default queue names per site
     if not args.queue:
-        if args.compute_site == 'CC':   : args.queue = 'ncsa'
-        if args.compute_site == 'BW':   : args.queue = 'normal'
+        if args.compute_site == 'CC'    : args.queue = 'ncsa'
+        if args.compute_site == 'BW'    : args.queue = 'normal'
         if args.compute_site == 'iForge': args.queue = 'normal'
 
     # Set the defaults NCPU for compute sites
     if not args.ncpu:
-        if args.compute_site == 'CC':     args.ncpu =  8 # Please revise
-        if args.compute_site == 'BW':     args.ncpu = 16
+        if args.compute_site == 'CC'     : args.ncpu =  8 # Please revise
+        if args.compute_site == 'BW'     : args.ncpu = 16
         if args.compute_site == 'iForge':
             if args.queue = 'normal':    args.ncpu = 24
             if args.queue = 'big_mem':   args.ncpu = 20
