@@ -25,14 +25,13 @@ def replace_fh(fh,pattern,subst='',prompt=''):
     return fh
 
 def get_stack_install_command(stack_name,project_path='/projects/sciteam/jrr/project/des/eeups/library'):
-    stack_filename      = "eeups_%s_%s.tar.gz" % tuple(stack_name.split('-'))
-    stack_filename_full = os.path.join(project_path,stack_filename)
+
 
     if stack_name:
-        INSTALL_EUUPS = """
-        cp {project_path}/{stack_filename} /tmp 
-        tar xfz /tmp/{stack_filename} -C /tmp
-        """
+        stack_filename      = "eeups_%s_%s.tar.gz" % tuple(stack_name.split('-'))
+        stack_filename_full = os.path.join(project_path,stack_filename)
+        INSTALL_EUPS = "cp {project_path}/{stack_filename} /tmp\n"
+        INSTALL_EUPS = INSTALL_EUPS + "tar xfz /tmp/{stack_filename} -C /tmp\n"
         install_eups = INSTALL_EUPS.format(stack_filename=stack_filename, project_path=project_path)
     else:
         install_eups = ''
@@ -50,7 +49,7 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{IP_SUBMIT_SITE}',subst=args.ip_submit_site)
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
     fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
-    fh = replace_fh(fh,'{INSTALL_EUPS}', substr=get_stack_install_command(args.eups_stack))
+    fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack))
     n = open(newfile,'w')
     n.write(fh)
     n.close()
