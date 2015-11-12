@@ -26,7 +26,6 @@ def replace_fh(fh,pattern,subst='',prompt=''):
 
 def get_stack_install_command(stack_name,project_path='/projects/sciteam/jrr/project/des/eeups/library'):
 
-
     if stack_name:
         stack_filename      = "eeups_%s_%s.tar.gz" % tuple(stack_name.split('-'))
         stack_filename_full = os.path.join(project_path,stack_filename)
@@ -153,6 +152,10 @@ def cmdline():
             if args.queue == 'big_mem':   args.ncpu = 20
             if args.queue == 'super_mem': args.ncpu = 60
             if args.queue == 'amd':       args.ncpu = 32
+
+    # Make sure we only do eups_stack for BW, other compute site not yet implemented
+    if not args.compute_site == 'BW':
+        args.eups_stack = None
         
     return args
 
