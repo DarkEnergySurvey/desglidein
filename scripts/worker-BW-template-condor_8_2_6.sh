@@ -4,9 +4,25 @@
 . /opt/modules/default/init/bash
 
 local_host_name=`hostname -f`
-
 echo LOCAL 
 echo $local_host_name 
+
+# Make sure that we can ping to the ORACLE DB
+ping -c 4 leovip148.ncsa.uiuc.edu
+#ping -c 4 leovip148.ncsa.illinois.edu
+if [ "$?" -ne "0" ]; then
+
+  mkdir -p ${HOME}/failed_dbconnections
+  date=`date "+%Y-%m-%d_%H:%M:%S"`
+  echo "Ping failed for $local_host_name." 
+  echo "Ping failed for $local_host_name." > ${HOME}/failed_dbconnections/${local_host_name}_${date}.txt
+  exit
+else
+  echo "Ping succeeded"
+fi
+
+# Now we copy and untar the EUPS stack is desired
+{INSTALL_EUPS}
 
 #####################################################################################################
 # Here we use the already setup EUPS variables and replace them as strings
