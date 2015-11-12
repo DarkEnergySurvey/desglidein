@@ -51,7 +51,6 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
     fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
     fh = replace_fh(fh,'{INSTALL_EUPS}', substr=get_stack_install_command(args.eups_stack))
-
     n = open(newfile,'w')
     n.write(fh)
     n.close()
@@ -139,7 +138,6 @@ def cmdline():
     # Check Compute Site
     if not args.compute_site:
         args.compute_site = getComputeSite()
-
 
     # Default queue names per site
     if not args.queue:
