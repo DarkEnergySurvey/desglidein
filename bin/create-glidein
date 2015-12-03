@@ -49,6 +49,7 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
     fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
     fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack))
+    fh = replace_fh(fh,'{USER}',subst=args.user)
     n = open(newfile,'w')
     n.write(fh)
     n.close()
