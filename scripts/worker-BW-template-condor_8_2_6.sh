@@ -24,6 +24,9 @@ fi
 # Now we copy and untar the EUPS stack if desired. For now this is only suported for Blue Waters
 {INSTALL_EUPS}
 
+# Make a local .eups_$USER on /tmp
+mkdir -p /tmp/.eups_{USER}
+
 #####################################################################################################
 # Here we use the already setup EUPS variables and replace them as strings
 #    CONDORSTRIPPED_DIR
