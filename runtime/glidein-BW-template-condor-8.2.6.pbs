@@ -22,8 +22,8 @@
 #PBS -q {QUEUE}
 #PBS -N {JOBNAME}
 #
-#PBS -e $PBS_JOBID.err
-#PBS -o $PBS_JOBID.out
+#PBS -e /scratch/staff/$USER/$PBS_JOBID.err
+#PBS -o /scratch/staff/$USER/$PBS_JOBID.out
 #
 #
 # Send a notification email when the job (b)egins and when the (e)nds
@@ -36,15 +36,31 @@
 # Make sure we run bash in BW
 . /opt/modules/default/init/bash
 
-mkdir -p $HOME/scratch/$PBS_JOBID
-cd $HOME/scratch/$PBS_JOBID
+mkdir -p /scratch/staff/$USER/$PBS_JOBID
+cd /scratch/staff/$USER/$PBS_JOBID
 
 touch pbsGlideinSetup
 /bin/echo Beginning_Glidein_Setup
 
+# -----------------------------------------------------------------
+# Create the worker that will pass some environment
+jobid=`echo $PBS_JOBID | cut -d'.' -f 1`
+echo "jobid = " $jobid
+# create a command file
+worker_sh=/scratch/staff/$USER/$PBS_JOBID/${jobid}_worker.sh
+cat > $worker_sh <<EOF
+#!/bin/sh --norc
+export PBS_JOBID=$PBS_JOBID
+env
+{SHELL_SCRIPT}
+EOF
+chmod a+xr $worker_sh
+# -----------------------------------------------------------------
+
 # EXAMPLE
 #aprun -N 1  -n 48 -d 16 myscript.sh
-aprun  -N 1  -n {NODES} -d 16 {SHELL_SCRIPT}
+#aprun  -N 1  -n {NODES} -d 16 {SHELL_SCRIPT}
+aprun  -N 1  -n {NODES} -d 16 $worker_sh
 
 # More examples
 # Run across more nodes :
