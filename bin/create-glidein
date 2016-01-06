@@ -48,6 +48,7 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{IP_SUBMIT_SITE}',subst=args.ip_submit_site)
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
     fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
+    fh = replace_fh(fh,'{TIME_TO_LIVE}',subst=str(args.time_to_live))
     fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack))
     fh = replace_fh(fh,'{USER}',subst=args.user)
     n = open(newfile,'w')
@@ -90,6 +91,7 @@ def update_pbs_template(template,newfile,args):
     return
 
 def get_walltime(seconds):
+    """ Get the formatted walltime for PBS"""
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     walltime = "%02d:%02d:%02d" % (h, m, s)
@@ -133,6 +135,7 @@ def cmdline():
     args = parser.parse_args()
     # Add extra args to namespace
     args.walltime = get_walltime(args.time*3600)
+    args.time_to_live = (args.walltime-60)/60.
     args.ip_submit_site = socket.gethostbyname(args.submit_site+".cosmology.illinois.edu")
     # Check Compute Site
     if not args.compute_site:

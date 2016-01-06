@@ -66,7 +66,7 @@ else
   mkdir -p /scratch/staff/{USER}/condor_local/desdm/${local_host_name}/execute
   echo "Script_Launching condor master";
   echo ${_condor_SBIN}/condor_master
-  ${_condor_SBIN}/condor_master -f
+  ${_condor_SBIN}/condor_master -dyn -f -r {TIME_TO_LIVE}
 
   #################################
   # Alternative method with PID
