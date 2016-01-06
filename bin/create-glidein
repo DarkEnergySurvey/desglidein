@@ -135,7 +135,7 @@ def cmdline():
     args = parser.parse_args()
     # Add extra args to namespace
     args.walltime = get_walltime(args.time*3600)
-    args.time_to_live = (args.time-60)/60.
+    args.time_to_live = args.time/60. - 1
     args.ip_submit_site = socket.gethostbyname(args.submit_site+".cosmology.illinois.edu")
     # Check Compute Site
     if not args.compute_site:
