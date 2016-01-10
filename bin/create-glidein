@@ -24,7 +24,14 @@ def replace_fh(fh,pattern,subst='',prompt=''):
     fh = fh.replace(pattern,subst)
     return fh
 
-def get_stack_install_command(stack_name,project_path='/projects/sciteam/jrr/project/des/eeups/library'):
+def get_stack_install_command(stack_name,compute_site):
+
+    if compute_site == 'BW':
+        project_path='/projects/sciteam/jrr/project/des/eeups/library'
+    elif compute_site == 'iForge':
+        project_path='/usr/apps/des/stacks/eeups/library'
+    else:
+        print "WARNING: project path not defined for compute_site=%s" % compute_site
 
     if stack_name:
         stack_filename      = "eeups_%s_%s.tar.gz" % tuple(stack_name.split('-'))
@@ -49,7 +56,7 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
     fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
     fh = replace_fh(fh,'{TIME_TO_LIVE}',subst=str(args.time_to_live))
-    fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack))
+    fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack,args.compute_site))
     fh = replace_fh(fh,'{USER}',subst=args.user)
     n = open(newfile,'w')
     n.write(fh)

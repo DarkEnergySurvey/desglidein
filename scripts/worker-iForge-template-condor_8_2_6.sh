@@ -5,6 +5,13 @@ local_host_name=`hostname -f`
 echo LOCAL 
 echo $local_host_name 
 
+# EUPS options
+# Now we copy and untar the EUPS stack if desired. For now this is only suported for Blue Waters
+{INSTALL_EUPS}
+
+# Make a local .eups_$USER on /tmp
+mkdir -p /tmp/.eups_{USER}
+
 #####################################################################################################
 # Here we use the already setup EUPS variables and replace them as strings
 #    CONDORSTRIPPED_DIR
@@ -44,7 +51,8 @@ else
   #
   echo "Script_Launching condor master";
   echo ${_condor_SBIN}/condor_master
-  ${_condor_SBIN}/condor_master -f
+  ${_condor_SBIN}/condor_master -dyn -f -r {TIME_TO_LIVE}
+
 fi
 
 echo "Finishing worker"

@@ -21,6 +21,7 @@ else
   echo "Ping succeeded"
 fi
 
+# EUPS options
 # Now we copy and untar the EUPS stack if desired. For now this is only suported for Blue Waters
 {INSTALL_EUPS}
 
