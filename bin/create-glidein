@@ -164,8 +164,9 @@ def cmdline():
             if args.queue == 'super_mem': args.ncpu = 60
             if args.queue == 'amd':       args.ncpu = 32
 
-    # Make sure we only do eups_stack for BW, other compute site not yet implemented
-    if not args.compute_site == 'BW' or  not args.compute_site == 'iForge':
+    # Make sure we only do eups_stack for BW and iForge for now, other compute sites not yet implemented
+    if not (args.compute_site == 'BW' or args.compute_site == 'iForge'):
+        print "Waring: Ignoring --eups_stack option for site: %s -- not implemented yet" % args.compute_site
         args.eups_stack = None
         
     return args
