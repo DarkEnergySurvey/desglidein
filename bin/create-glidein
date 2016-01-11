@@ -165,7 +165,7 @@ def cmdline():
             if args.queue == 'amd':       args.ncpu = 32
 
     # Make sure we only do eups_stack for BW, other compute site not yet implemented
-    if not args.compute_site == 'BW':
+    if not args.compute_site == 'BW' or  not args.compute_site == 'iForge':
         args.eups_stack = None
         
     return args
