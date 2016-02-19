@@ -22,7 +22,7 @@ export _condor_RELEASE_DIR={CONDORSTRIPPED_DIR}
 export _condor_SHARED_PORT={CONDORSTRIPPED_DIR}/libexec/condor_shared_port
 export _condor_SBIN={CONDORSTRIPPED_DIR}/sbin
 
-export _condor_LOCAL_DIR=${HOME}/condor_local/desdm/${local_host_name}
+export _condor_LOCAL_DIR=/scratch/users/{USER}/condor_local/desdm/${local_host_name}
 export _condor_NUM_CPUS={NCPU}
 export _condor_UID_DOMAIN=iforge.ncsa.illinois.edu
 export _condor_FILESYSTEM_DOMAIN=iforge.ncsa.illinois.edu
