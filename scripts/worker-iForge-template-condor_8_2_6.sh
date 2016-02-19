@@ -43,11 +43,11 @@ then
   sleep 3600
 else
   #
-  mkdir -p ${HOME}/condor_local
-  mkdir -p ${HOME}/condor_local/desdm
-  mkdir -p ${HOME}/condor_local/desdm/${local_host_name}
-  mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/log
-  mkdir -p ${HOME}/condor_local/desdm/${local_host_name}/execute
+  mkdir -p /scratch/users/{USER}/condor_local
+  mkdir -p /scratch/users/{USER}/condor_local/desdm
+  mkdir -p /scratch/users/{USER}/condor_local/desdm/${local_host_name}
+  mkdir -p /scratch/users/{USER}/condor_local/desdm/${local_host_name}/log
+  mkdir -p /scratch/users/{USER}/condor_local/desdm/${local_host_name}/execute
   #
   echo "Script_Launching condor master";
   echo ${_condor_SBIN}/condor_master
