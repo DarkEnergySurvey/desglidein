@@ -175,9 +175,7 @@ def cmdline():
         args.eups_stack = None
 
     # Glidein name
-    if args.glidein_name:
-        args.glidein_name = "," + args.glidein_name
-    else:
+    if not args.glidein_name:
         args.glidein_name = ""
         
     return args
