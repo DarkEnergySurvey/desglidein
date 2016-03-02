@@ -176,7 +176,7 @@ def cmdline():
 
     # Glidein name
     if args.glidein_name:
-        args.glidein_name = "," + args.glidein_name:
+        args.glidein_name = "," + args.glidein_name
     else:
         args.glidein_name = ""
         
