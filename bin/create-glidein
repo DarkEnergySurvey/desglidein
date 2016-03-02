@@ -54,10 +54,11 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{SUBMIT_SITE}',subst=args.submit_site)
     fh = replace_fh(fh,'{IP_SUBMIT_SITE}',subst=args.ip_submit_site)
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
-    fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(args.noclaim_shutdown))
+    fh = replace_fh(fh,'{NO_CLAIM_SHUTDOWN}',subst=str(3600*args.noclaim_shutdown)) 
     fh = replace_fh(fh,'{TIME_TO_LIVE}',subst=str(args.time_to_live))
     fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack,args.compute_site))
     fh = replace_fh(fh,'{USER}',subst=args.user)
+    fh = replace_fh(fh,'{GLIDEIN_NAME}', subst=args.glidein_name)
     n = open(newfile,'w')
     n.write(fh)
     n.close()
@@ -135,15 +136,19 @@ def cmdline():
                         help="Name of Compute Site")
     parser.add_argument("--user", action="store", default=os.environ['USER'],
                         help="Change user to notify via email [default is $USER]")
-    parser.add_argument("--noclaim_shutdown", action="store", default=1800,
-                        help="Pass condor's STARTD_NOCLAIM_SHUTDOWN in sec [default is 1800s (30min)]")
+    parser.add_argument("--noclaim_shutdown", action="store", type=float, default=1,
+                        help="Pass condor's STARTD_NOCLAIM_SHUTDOWN in hours [default is 1 hr]")
     parser.add_argument("--eups_stack", action="store", default=None,
                         help="Optional EUPS stack to install (i.e. finalcut Y2A1dev+6)")
+    parser.add_argument("--glidein_name", action="store", default=None,
+                        help="Optional string to populate condor's GLIDEIN_NAME")
+
     args = parser.parse_args()
     # Add extra args to namespace
     args.walltime = get_walltime(args.time*3600)
     args.time_to_live = args.time*60. - 1   # Minus 1 minute to die gracefuly
     args.ip_submit_site = socket.gethostbyname(args.submit_site+".cosmology.illinois.edu")
+
     # Check Compute Site
     if not args.compute_site:
         args.compute_site = getComputeSite()
@@ -168,6 +173,12 @@ def cmdline():
     if not (args.compute_site == 'BW' or args.compute_site == 'iForge'):
         print "Waring: Ignoring --eups_stack option for site: %s -- not implemented yet" % args.compute_site
         args.eups_stack = None
+
+    # Glidein name
+    if args.glidein_name:
+        args.glidein_name = "," + args.glidein_name:
+    else:
+        args.glidein_name = ""
         
     return args
 

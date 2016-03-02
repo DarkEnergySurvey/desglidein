@@ -33,6 +33,10 @@ export _condor_STARTD_NOCLAIM_SHUTDOWN={NO_CLAIM_SHUTDOWN}
 export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE} 
 export _condor_CCB_ADDRESS={IP_SUBMIT_SITE} 
 
+# glidein name
+export _condor_IS_GLIDEIN=True
+export _condor_STARTD_EXPRS=IS_GLIDEIN, START, DaemonStopTime {GLIDEIN_NAME}
+
 psef=`ps -ef | grep condor`
 echo psef
 echo $psef
