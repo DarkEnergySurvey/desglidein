@@ -137,7 +137,7 @@ def cmdline():
                         help="Name of Compute Site")
     parser.add_argument("--user", action="store", default=os.environ['USER'],
                         help="Change user [default is $USER]")
-    parser.add_argument("--scratch_user", action="store", default=None,
+    parser.add_argument("--scratch_path", action="store", default=None,
                         help="Change scractch path [default is determined automatically")
     parser.add_argument("--noclaim_shutdown", action="store", type=float, default=1,
                         help="Pass condor's STARTD_NOCLAIM_SHUTDOWN in hours [default is 1 hr]")
