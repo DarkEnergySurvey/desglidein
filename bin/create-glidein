@@ -58,6 +58,7 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{TIME_TO_LIVE}',subst=str(args.time_to_live))
     fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack,args.compute_site))
     fh = replace_fh(fh,'{USER}',subst=args.user)
+    fh = replace_fh(fh,'{SCRATCH_PATH}',subst=args.scratch_path)
     fh = replace_fh(fh,'{GLIDEIN_NAME}', subst=args.glidein_name)
     n = open(newfile,'w')
     n.write(fh)
