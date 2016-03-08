@@ -47,8 +47,8 @@ hostname -f
 pwd
 
 # Working directory for this PBS Job
-mkdir -p  /scratch/users/$USER/$PBS_JOBID
-cd /scratch/users/$USER/$PBS_JOBID
+mkdir -p  {SCRATCH_PATH}/$PBS_JOBID
+cd {SCRATCH_PATH}/$PBS_JOBID
 
 touch pbsGlideinSetup
 /bin/echo Beginning_Glidein_Setup
@@ -64,7 +64,7 @@ touch pbsGlideinSetup
 jobid=`echo $PBS_JOBID | cut -d'.' -f 1`
 echo "jobid = " $jobid
 # create a command file
-worker_sh=/scratch/users/$USER/$PBS_JOBID/${jobid}_worker.sh
+worker_sh={SCRATCH_PATH}/$PBS_JOBID/${jobid}_worker.sh
 cat > $worker_sh <<EOF
 #!/bin/sh --norc
 export PBS_JOBID=$PBS_JOBID
