@@ -91,6 +91,7 @@ def update_pbs_template(template,newfile,args):
     fh = replace_fh(fh,'{JOBNAME}',subst=args.submit_site+time.strftime("-%Y%b%d"))
     fh = replace_fh(fh,'{WALLTIME}',subst=args.walltime)
     fh = replace_fh(fh,'{SHELL_SCRIPT}',subst=args.shell_script)
+    fh = replace_fh(fh,'{SCRATCH_PATH}',subst=args.scratch_path)
     fh = replace_fh(fh,'{USER}',subst=args.user)
     n = open(newfile,'w')
     n.write(fh)
@@ -135,7 +136,9 @@ def cmdline():
     parser.add_argument("--compute_site", action="store", default=None,
                         help="Name of Compute Site")
     parser.add_argument("--user", action="store", default=os.environ['USER'],
-                        help="Change user to notify via email [default is $USER]")
+                        help="Change user [default is $USER]")
+    parser.add_argument("--scratch_user", action="store", default=None,
+                        help="Change scractch path [default is determined automatically")
     parser.add_argument("--noclaim_shutdown", action="store", type=float, default=1,
                         help="Pass condor's STARTD_NOCLAIM_SHUTDOWN in hours [default is 1 hr]")
     parser.add_argument("--eups_stack", action="store", default=None,
@@ -173,6 +176,11 @@ def cmdline():
     if not (args.compute_site == 'BW' or args.compute_site == 'iForge'):
         print "Waring: Ignoring --eups_stack option for site: %s -- not implemented yet" % args.compute_site
         args.eups_stack = None
+
+    # Scratch_path
+    if not args.scratch_path:
+        if args.compute_site == 'BW'    : args.scratch_path = os.path.join('/scratch/sciteam',args.user)
+        if args.compute_site == 'iForge': args.scratch_path = os.path.join('/scratch/users',args.user)
 
     # Glidein name
     if not args.glidein_name:

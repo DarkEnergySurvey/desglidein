@@ -22,7 +22,7 @@ export _condor_RELEASE_DIR={CONDORSTRIPPED_DIR}
 export _condor_SHARED_PORT={CONDORSTRIPPED_DIR}/libexec/condor_shared_port
 export _condor_SBIN={CONDORSTRIPPED_DIR}/sbin
 
-export _condor_LOCAL_DIR=/scratch/users/{USER}/condor_local/desdm/${local_host_name}
+export _condor_LOCAL_DIR={SCRATCH_PATH}/condor_local/desdm/${local_host_name}
 export _condor_NUM_CPUS={NCPU}
 export _condor_UID_DOMAIN=iforge.ncsa.illinois.edu
 export _condor_FILESYSTEM_DOMAIN=iforge.ncsa.illinois.edu
@@ -33,11 +33,11 @@ export _condor_STARTD_NOCLAIM_SHUTDOWN={NO_CLAIM_SHUTDOWN}
 export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE} 
 export _condor_CCB_ADDRESS={IP_SUBMIT_SITE} 
 
-# glidein name
-export _condor_GLIDEIN_NAME={GLIDEIN_NAME}
-export _condor_STARTD_EXPRS=GLIDEIN_NAME
-#export _condor_IS_GLIDEIN=True
-#export _condor_STARTD_EXPRS="IS_GLIDEIN, START, DaemonStopTime, GLIDEIN_NAME"
+# glidein name -- not ready yet
+#export _condor_GLIDEIN_NAME={GLIDEIN_NAME}
+#export _condor_STARTD_EXPRS=GLIDEIN_NAME
+##export _condor_IS_GLIDEIN=True
+##export _condor_STARTD_EXPRS="IS_GLIDEIN, START, DaemonStopTime, GLIDEIN_NAME"
 
 psef=`ps -ef | grep condor`
 echo psef
@@ -49,11 +49,11 @@ then
   sleep 3600
 else
   #
-  mkdir -p /scratch/users/{USER}/condor_local
-  mkdir -p /scratch/users/{USER}/condor_local/desdm
-  mkdir -p /scratch/users/{USER}/condor_local/desdm/${local_host_name}
-  mkdir -p /scratch/users/{USER}/condor_local/desdm/${local_host_name}/log
-  mkdir -p /scratch/users/{USER}/condor_local/desdm/${local_host_name}/execute
+  mkdir -p {SCRATCH_PATH}/condor_local
+  mkdir -p {SCRATCH_PATH}/condor_local/desdm
+  mkdir -p {SCRATCH_PATH}/condor_local/desdm/${local_host_name}
+  mkdir -p {SCRATCH_PATH}/condor_local/desdm/${local_host_name}/log
+  mkdir -p {SCRATCH_PATH}/condor_local/desdm/${local_host_name}/execute
   #
   echo "Script_Launching condor master";
   echo ${_condor_SBIN}/condor_master
