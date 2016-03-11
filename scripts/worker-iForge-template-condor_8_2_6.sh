@@ -39,6 +39,12 @@ export _condor_CCB_ADDRESS={IP_SUBMIT_SITE}
 ##export _condor_IS_GLIDEIN=True
 ##export _condor_STARTD_EXPRS="IS_GLIDEIN, START, DaemonStopTime, GLIDEIN_NAME"
 
+# no_glidein_name
+#_condor_START = TRUE
+# yes gliden-name
+#_condor_START = (NodeSetIncl == {GLIDEIN_NAME})
+#_condor_START_owner=mgower
+
 psef=`ps -ef | grep condor`
 echo psef
 echo $psef
