@@ -33,8 +33,11 @@ export _condor_STARTD_NOCLAIM_SHUTDOWN={NO_CLAIM_SHUTDOWN}
 export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE} 
 export _condor_CCB_ADDRESS={IP_SUBMIT_SITE} 
 
+# iForge new config 
+export _condor_TCP_FORWARDING_HOST=141.142.164.70
+
 # Only allow the user
-export _condor_START_owner={USER}
+#export _condor_START_owner={USER}
 
 # glidein name -- not ready yet
 #export _condor_GLIDEIN_NAME={GLIDEIN_NAME}

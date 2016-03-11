@@ -50,7 +50,7 @@ export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE}
 export _condor_CCB_ADDRESS={IP_SUBMIT_SITE} 
 
 # Only allow the user
-export _condor_START_owner={USER}
+#export _condor_START_owner={USER}
 
 # glidein name -- not ready yet
 #export _condor_GLIDEIN_NAME={GLIDEIN_NAME}
@@ -58,10 +58,18 @@ export _condor_START_owner={USER}
 ##export _condor_IS_GLIDEIN=True
 ##export _condor_STARTD_EXPRS="IS_GLIDEIN, START, DaemonStopTime, GLIDEIN_NAME"
 
+# Option A -- wild do not use
 # no_glidein_name
 #_condor_START = TRUE
-# yes gliden-name
-#_condor_START = (NodeSetIncl == {GLIDEIN_NAME})
+
+# Option B -- default
+# yes USER only
+#export _condor_START = (Owner =="{USER}")
+#_condor_START = (XXXXX == {USER_COSMO})
+
+# Option C
+# yes gliden-name and USER_COSMO 
+#_condor_START = (XXXXX == {USER_COSMO}) && (YYYY == {GLIDEIN_NAME})
 
 # Hack to add extra missing libs
 export LD_LIBRARY_PATH=/u/sciteam/daues/condor/pcre/install/lib:$LD_LIBRARY_PATH
