@@ -22,8 +22,8 @@
 #PBS -q {QUEUE}
 #PBS -N {JOBNAME}
 #
-#PBS -e /scratch/staff/{USER}/$PBS_JOBID.err
-#PBS -o /scratch/staff/{USER}/$PBS_JOBID.out
+#PBS -e {SCRATCH_PATH}/$PBS_JOBID.err
+#PBS -o {SCRATCH_PATH}/$PBS_JOBID.out
 #
 #
 # Send a notification email when the job (b)egins and when the (e)nds
