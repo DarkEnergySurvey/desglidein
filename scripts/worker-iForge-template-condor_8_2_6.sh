@@ -33,6 +33,9 @@ export _condor_STARTD_NOCLAIM_SHUTDOWN={NO_CLAIM_SHUTDOWN}
 export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE} 
 export _condor_CCB_ADDRESS={IP_SUBMIT_SITE} 
 
+# Only allow the user
+export _condor_START_owner={USER}
+
 # glidein name -- not ready yet
 #export _condor_GLIDEIN_NAME={GLIDEIN_NAME}
 #export _condor_STARTD_EXPRS=GLIDEIN_NAME
@@ -43,7 +46,6 @@ export _condor_CCB_ADDRESS={IP_SUBMIT_SITE}
 #_condor_START = TRUE
 # yes gliden-name
 #_condor_START = (NodeSetIncl == {GLIDEIN_NAME})
-#_condor_START_owner=mgower
 
 psef=`ps -ef | grep condor`
 echo psef
