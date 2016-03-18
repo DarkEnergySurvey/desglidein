@@ -33,25 +33,11 @@ export _condor_STARTD_NOCLAIM_SHUTDOWN={NO_CLAIM_SHUTDOWN}
 export _condor_COLLECTOR_HOST={IP_SUBMIT_SITE} 
 export _condor_CCB_ADDRESS={IP_SUBMIT_SITE} 
 
-# iForge new network config 
-export _condor_TCP_FORWARDING_HOST=141.142.164.70
-parsed_ip_number=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
-export _condor_PRIVATE_NETWORK_INTERFACE=${parsed_ip_number}
-echo "parsed_ip_number =" $parsed_ip_number
+# setup _condor_GLIDEIN_NAME
+{condor_GLIDEIN_NAME}
 
-
-# Only allow the user
-#export _condor_START_owner={USER}
-
-# glidein name -- not ready yet
-#export _condor_GLIDEIN_NAME={GLIDEIN_NAME}
-#export _condor_STARTD_EXPRS=GLIDEIN_NAME
-##export _condor_IS_GLIDEIN=True
-##export _condor_STARTD_EXPRS="IS_GLIDEIN, START, DaemonStopTime, GLIDEIN_NAME"
-# no_glidein_name
-#_condor_START = TRUE
-# yes gliden-name
-#_condor_START = (NodeSetIncl == {GLIDEIN_NAME})
+# setup _condor_START
+{condor_START}
 
 psef=`ps -ef | grep condor`
 echo psef

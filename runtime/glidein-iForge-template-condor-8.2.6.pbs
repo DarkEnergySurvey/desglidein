@@ -23,8 +23,6 @@
 #PBS -N {JOBNAME}
 #PBS -q {QUEUE}
 #
-#PBS -e {SCRATCH_PATH}/$PBS_JOBID.err
-#PBS -o {SCRATCH_PATH}/$PBS_JOBID.out
 
 # Send a notification email when the job (b)egins and when the (e)nds
 # # remove the line below to disable email notification.

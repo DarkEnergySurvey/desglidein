@@ -45,6 +45,22 @@ def get_stack_install_command(stack_name,compute_site):
     return install_eups
 
 
+def set_condor_START(args):
+
+    if args.glidein_name:
+        condor_START = """export _condor_START='(Owner == "%s" && TARGET.GLIDEIN_NAME == "%s")'""" % (args.user_cosmo,args.glidein_name)
+    else:
+        condor_START = """export _condor_START='(Owner == "%s")'""" % args.user_cosmo
+    return condor_START
+
+def set_condor_GLIDEIN_NAME(args):
+
+    condor_GLIDEIN_NAME = ''
+    if args.glidein_name:
+        condor_GLIDEIN_NAME = condor_GLIDEIN_NAME + """export _condor_GLIDEIN_NAME='"%s"'\n""" % args.glidein_name
+        condor_GLIDEIN_NAME = condor_GLIDEIN_NAME + 'export _condor_STARTD_EXPRS="GLIDEIN_NAME"\n'
+    return condor_GLIDEIN_NAME
+
 def update_shell_template(template,newfile,args): 
     print "# Reading template: %s" % template
     f = open(template,'r')
@@ -59,7 +75,8 @@ def update_shell_template(template,newfile,args):
     fh = replace_fh(fh,'{INSTALL_EUPS}', subst=get_stack_install_command(args.eups_stack,args.compute_site))
     fh = replace_fh(fh,'{USER}',subst=args.user)
     fh = replace_fh(fh,'{SCRATCH_PATH}',subst=args.scratch_path)
-    fh = replace_fh(fh,'{GLIDEIN_NAME}', subst=args.glidein_name)
+    fh = replace_fh(fh,'{condor_GLIDEIN_NAME}', subst=set_condor_GLIDEIN_NAME(args))
+    fh = replace_fh(fh,'{condor_START}', subst=set_condor_START(args))
     n = open(newfile,'w')
     n.write(fh)
     n.close()
@@ -137,7 +154,9 @@ def cmdline():
     parser.add_argument("--compute_site", action="store", default=None,
                         help="Name of Compute Site")
     parser.add_argument("--user", action="store", default=os.environ['USER'],
-                        help="Change user [default is $USER]")
+                        help="Change local username  [default is $USER]")
+    parser.add_argument("--user_cosmo", action="store", default=os.environ['USER'],
+                        help="Change remote (cosmo) username [default is $USER]")
     parser.add_argument("--scratch_path", action="store", default=None,
                         help="Change scractch path [default is determined automatically")
     parser.add_argument("--noclaim_shutdown", action="store", type=float, default=1,
