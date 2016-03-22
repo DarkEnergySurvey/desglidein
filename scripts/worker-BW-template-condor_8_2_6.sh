@@ -10,8 +10,8 @@ echo $local_host_name
 # Make sure that we can ping to the ORACLE DB
 ping -c 4 leovip148.ncsa.uiuc.edu
 #ping -c 4 leovip148.ncsa.illinois.edu
-if [ "$?" -ne "0" ]; then
 
+if [ "$?" -ne "0" ]; then
   mkdir -p ${HOME}/failed_dbconnections
   date=`date "+%Y-%m-%d_%H:%M:%S"`
   echo "Ping failed for $local_host_name." 
@@ -75,26 +75,7 @@ else
   echo ${_condor_SBIN}/condor_master
   ${_condor_SBIN}/condor_master -dyn -f -r {TIME_TO_LIVE}
 
-  #################################
-  # Alternative method with PID
-  #pidfile=/tmp/${local_host_name}-condor.pid
-  #echo "Will write PID to:${pidfile}"
-  #${_condor_SBIN}/condor_master -pidfile ${pidfile}
-  #echo "waiting 10s for condor_master to start"
-  #sleep 10
-  #PID=`cat ${pidfile}`
-  #echo "PID:${PID}"
-  #################################
-
 fi
 
 echo "Finishing worker"
-
-#####################################
-# Alternative method with PID
-#while [[ ( -d /proc/${PID} ) ]]; do
-#    sleep 1
-#    echo "waiting for ${PID}"
-#done
-#####################################
 

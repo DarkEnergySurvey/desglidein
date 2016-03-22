@@ -201,6 +201,7 @@ def cmdline():
     if not args.scratch_path:
         if args.compute_site == 'BW'    : args.scratch_path = os.path.join('/scratch/sciteam',args.user)
         if args.compute_site == 'iForge': args.scratch_path = os.path.join('/scratch/users',args.user)
+        if args.compute_site == 'CC'    : args.scratch_path = os.path.join('/scratch/users',args.user)
 
     # Glidein name
     if not args.glidein_name:

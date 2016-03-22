@@ -36,6 +36,7 @@
 # Make sure we run bash in BW
 . /opt/modules/default/init/bash
 
+# Working directory for this PBS Job
 mkdir -p {SCRATCH_PATH}/$PBS_JOBID
 cd {SCRATCH_PATH}/$PBS_JOBID
 
