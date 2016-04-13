@@ -30,7 +30,7 @@ def get_stack_install_command(stack_name,compute_site):
         project_path='/projects/sciteam/jrr/project/des/eeups/library'
     elif compute_site == 'iForge':
         project_path='/usr/apps/des/stacks/eeups/library'
-    elif comput_site == 'CC':
+    elif compute_site == 'CC':
         project_path = '/projects/ncsa/des/eeups/library'
     else:
         print "WARNING: project path not defined for compute_site=%s" % compute_site
