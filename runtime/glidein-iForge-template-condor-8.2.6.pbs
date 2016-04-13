@@ -48,7 +48,7 @@ hostname -f
 pwd
 
 # Working directory for this PBS Job
-mkdir -p  {SCRATCH_PATH}/$PBS_JOBID
+mkdir -p {SCRATCH_PATH}/$PBS_JOBID
 cd {SCRATCH_PATH}/$PBS_JOBID
 
 touch pbsGlideinSetup

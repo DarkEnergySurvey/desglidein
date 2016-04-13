@@ -50,7 +50,9 @@ mkdir -p {SCRATCH_PATH}/$PBS_JOBID
 cd {SCRATCH_PATH}/$PBS_JOBID
 
 touch pbsGlideinSetup
-/bin/echo Beginning_Glidein_Setup
+echo "-----------------------"
+echo "Beginning_Glidein_Setup"
+echo "-----------------------"
 
 #
 # Choose a script to start the glidein
