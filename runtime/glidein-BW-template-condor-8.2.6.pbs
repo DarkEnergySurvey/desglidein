@@ -69,6 +69,15 @@ chmod a+xr $worker_sh
 module load ccm
 ccmrun $worker_sh --hostfile=”$PBS_NODEFILE”
 
+# More examples
+# Run across more nodes :
+#
+# aprun  -N 1  -n 80 -d 16  ...
+# aprun  -N 1  -n 160 -d 16 
+# aprun  -N 1  -n 320 -d 16 
+# aprun  -N 1  -n 640 -d 16 
+#
+#  Up_above:-lnodes=640:ppn=16:xe
 
 sleep 10
 touch pbsPostAprun
