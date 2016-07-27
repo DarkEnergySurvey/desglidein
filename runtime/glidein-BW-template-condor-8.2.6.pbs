@@ -14,7 +14,7 @@
 #   ppn: how many cores per node to use (1 through 8)
 #       (you are always charged for the entire node)
 #
-#PBS -l nodes={NODES}:ppn=16:xe
+#PBS -l nodes={NODES}:ppn=32:xe
 #
 #PBS -lgres=ccm
 #
@@ -52,6 +52,8 @@ worker_sh={SCRATCH_PATH}/$PBS_JOBID/${jobid}_worker.sh
 cat > $worker_sh <<EOF
 #!/bin/sh --norc
 export PBS_JOBID=$PBS_JOBID
+export USER=$USER
+export HOME=$HOME
 env
 {SHELL_SCRIPT}
 EOF
@@ -61,17 +63,12 @@ chmod a+xr $worker_sh
 # EXAMPLE
 #aprun -N 1  -n 48 -d 16 myscript.sh
 #aprun  -N 1  -n {NODES} -d 16 {SHELL_SCRIPT}
-aprun  -N 1  -n {NODES} -d 16 $worker_sh
+#aprun  -N 1  -n {NODES} -d 16 $worker_sh
 
-# More examples
-# Run across more nodes :
-#
-# aprun  -N 1  -n 80 -d 16  ...
-# aprun  -N 1  -n 160 -d 16 
-# aprun  -N 1  -n 320 -d 16 
-# aprun  -N 1  -n 640 -d 16 
-#
-#  Up_above:-lnodes=640:ppn=16:xe
+# Using ccmrun instead of aprun
+module load ccm
+ccmrun $worker_sh --hostfile=”$PBS_NODEFILE”
+
 
 sleep 10
 touch pbsPostAprun
