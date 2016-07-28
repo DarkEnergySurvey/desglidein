@@ -194,9 +194,9 @@ def cmdline():
 
     # Project_path defaults
     if not args.project_path:
-        if compute_site == 'BW'    : args.project_path = '/projects/sciteam/jrr/project/des/eeups/library'
-        if compute_site == 'iForge': args.project_path = '/usr/apps/des/stacks/eeups/library'
-        if compute_site == 'CC'    : args.project_path = '/projects/ncsa/des/eeups/library'
+        if args.compute_site == 'BW'    : args.project_path = '/projects/sciteam/jrr/project/des/eeups/library'
+        if args.compute_site == 'iForge': args.project_path = '/usr/apps/des/stacks/eeups/library'
+        if args.compute_site == 'CC'    : args.project_path = '/projects/ncsa/des/eeups/library'
 
     # Glidein name
     if not args.glidein_name:
