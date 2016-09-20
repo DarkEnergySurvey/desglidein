@@ -134,8 +134,8 @@ def cmdline():
     # The positional arguments
     parser.add_argument("time", action="store",default=None,type=float,
                         help="Total required time in hours (can be a fraction)")
-    parser.add_argument("--ncpu", action="store", default=None, type=int,
-                        help="Number of CPUs per node")
+    parser.add_argument("--nslot", action="store", dest='ncpu', default=None, type=int,
+                        help="Number of SLOTS per node (called NPCU under condor)")
     parser.add_argument("--nodes", action="store", default=1, type=int,
                         help="Number of nodes to request")
     parser.add_argument("--queue", action="store", default=None,
