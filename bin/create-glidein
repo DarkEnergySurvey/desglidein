@@ -94,6 +94,7 @@ def update_pbs_template(template,newfile,args):
     print "# Reading template: %s" % template
     f = open(template,'r')
     fh = f.read()
+    fh = replace_fh(fh,'{BW_PROJECT}',subst=str(args.bw_project))
     fh = replace_fh(fh,'{NODES}',subst=str(args.nodes))
     fh = replace_fh(fh,'{NCPU}',subst=str(args.ncpu))
     fh = replace_fh(fh,'{QUEUE}',subst=str(args.queue))

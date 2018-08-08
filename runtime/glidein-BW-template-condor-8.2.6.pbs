@@ -18,7 +18,7 @@
 #
 #PBS -lgres=ccm
 #
-#PBS -A {PROJECT}
+#PBS -A {BW_PROJECT}
 #PBS -q {QUEUE}
 #PBS -N {JOBNAME}
 #
