@@ -8,8 +8,7 @@ echo LOCAL
 echo $local_host_name 
 
 # Make sure that we can ping to the ORACLE DB
-ping -c 4 leovip148.ncsa.uiuc.edu
-#ping -c 4 leovip148.ncsa.illinois.edu
+ping -c 4 desdb.ncsa.illinois.edu
 
 if [ "$?" -ne "0" ]; then
   mkdir -p ${HOME}/failed_dbconnections
