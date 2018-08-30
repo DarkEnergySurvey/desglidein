@@ -166,7 +166,14 @@ def cmdline():
     # Add extra args to namespace
     args.walltime = get_walltime(args.time*3600)
     args.time_to_live = args.time*60. - 1   # Minus 1 minute to die gracefuly
-    args.ip_submit_site = socket.gethostbyname(args.submit_site+".cosmology.illinois.edu")
+    try:
+        args.ip_submit_site = socket.gethostbyname(args.submit_site)
+    except:
+        args.ip_submit_site = socket.gethostbyname(args.submit_site+".cosmology.illinois.edu")
+    except:
+        args.ip_submit_site = socket.gethostbyname(args.submit_site+".ncsa.illinois.edu")
+    else:
+        raise NameError("IP of hostname: %s could be found" % args.ip_submit_site)
 
     # Check Compute Site
     if not args.compute_site:
