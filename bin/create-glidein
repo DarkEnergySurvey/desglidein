@@ -24,14 +24,22 @@ def replace_fh(fh,pattern,subst='',prompt=''):
     fh = fh.replace(pattern,subst)
     return fh
 
-def get_stack_install_command(stack_name,project_path):
+def get_stack_install_command(stack_name,project_path,install_prefix="/tmp"):
     """ Get the install command for the eeups tarball """
     if stack_name:
-        stack_filename      = "eeups_%s_%s.tar.gz" % tuple(stack_name.split('-'))
+        product_name = stack_name.split('-')[0]
+        product_version = stack_name.split('-')[1]
+        install_path  = os.path.join(install_prefix,product_name)
+        stack_filename      = "eeups_%s_%s.tar.gz" % (product_name,product_version)
         stack_filename_full = os.path.join(project_path,stack_filename)
-        INSTALL_EUPS = "cp {project_path}/{stack_filename} /tmp\n"
-        INSTALL_EUPS = INSTALL_EUPS + "tar xfz /tmp/{stack_filename} -C /tmp\n"
-        install_eups = INSTALL_EUPS.format(stack_filename=stack_filename, project_path=project_path)
+
+        INSTALL_EUPS = "mkdir -p {install_path}\n"
+        INSTALL_EUPS = INSTALL_EUPS + "cd {install_path}\n"
+        INSTALL_EUPS = INSTALL_EUPS + "cp {project_path}/{stack_filename} . \n"
+        INSTALL_EUPS = INSTALL_EUPS + "tar xfz {stack_filename} \n"
+        install_eups = INSTALL_EUPS.format(stack_filename=stack_filename,
+                                           project_path=project_path,
+                                           install_path=install_path)
     else:
         install_eups = ''
     return install_eups

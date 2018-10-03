@@ -21,7 +21,7 @@ else
 fi
 
 # EUPS options
-# Now we copy and untar the EUPS stack if desired. For now this is only suported for Blue Waters
+# Now we copy and untar the EUPS stack if desired. 
 {INSTALL_EUPS}
 
 # Make a local .eups_$USER on /tmp
