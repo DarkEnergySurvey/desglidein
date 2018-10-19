@@ -127,7 +127,7 @@ def get_walltime(seconds):
 def getComputeSite():
     address = socket.getfqdn()
     if address.find('campuscluster') >= 0:
-        COMPUTE_SITE = 'CC' 
+        COMPUTE_SITE = 'CC'
     elif address.find('h2ologin') >= 0:
         COMPUTE_SITE = 'BW'
     elif address.find('iforge') >= 0:
@@ -176,19 +176,8 @@ def cmdline():
     args.time_to_live = args.time*60. - 1   # Minus 1 minute to die gracefuly
 
     # Get full hostname
-    # 1 - No domain
     try:
         args.ip_submit_site = socket.gethostbyname(args.submit_site)
-    except socket.gaierror:
-        pass
-    # 2 - cosmology
-    try:
-        args.ip_submit_site = socket.gethostbyname(args.submit_site+".cosmology.illinois.edu")
-    except socket.gaierror:
-        pass
-    # 3 - ncsa
-    try:
-        args.ip_submit_site = socket.gethostbyname(args.submit_site+".ncsa.illinois.edu")
     except socket.gaierror:
         raise NameError("IP of hostname: %s could be found" % args.ip_submit_site)
 
