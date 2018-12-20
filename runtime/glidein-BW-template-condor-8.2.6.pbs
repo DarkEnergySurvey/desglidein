@@ -81,6 +81,7 @@ do
    sleep 10
 done
 echo "Done ssh to nodes"
+tail -f \$PBS_NODEFILE
 EOF
 chmod a+xr $ssh_and_launch
 # -----------------------------------------------------------------
