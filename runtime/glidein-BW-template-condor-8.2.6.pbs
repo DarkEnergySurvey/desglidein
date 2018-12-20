@@ -43,7 +43,7 @@ cd {SCRATCH_PATH}/$PBS_JOBID
 touch pbsGlideinSetup
 /bin/echo Beginning_Glidein_Setup
 
-# -----------------------------------------------------------------
+# ----------------- WORKER -----------------------------------------
 # Create the worker that will pass some environment
 jobid=`echo $PBS_JOBID | cut -d'.' -f 1`
 echo "jobid = " $jobid
@@ -60,28 +60,53 @@ EOF
 chmod a+xr $worker_sh
 # -----------------------------------------------------------------
 
+
+# ----------------- SSH_AND_LAUNCH -------------------------------
+# Now create the ssh-and-launch script on the fly. This script will
+# propagate the worker to each of the nodes. The nodes are read from
+# the $PBS_NODEFILE which is part of the environment
+ssh_and_launch={SCRATCH_PATH}/$PBS_JOBID/${jobid}_ssh_and_launch.sh
+cat > $ssh_and_launch <<EOF
+#!/bin/sh --norc
+# Get the nodes names and put the in random tmp file
+cat $PBS_NODEFILE  | sort -u > /tmp/ccm_nodelist_$$
+
+# Here we loop over all the node available and ssh to them
+IFS=$'\n' read -d '' -r -a lines < /tmp/ccm_nodelist_$$
+
+for i in "\${lines[@]}"
+do
+   echo ssh \$i $ssh_and_launch
+   ssh \$i $ssh_and_launch &
+   sleep 10
+done
+echo "Done ssh to nodes"
+EOF
+chmod a+xr $ssh_and_launch
+# -----------------------------------------------------------------
+
+
 # EXAMPLE
 #aprun -N 1  -n 48 -d 16 myscript.sh
 #aprun  -N 1  -n {NODES} -d 16 {SHELL_SCRIPT}
 #aprun  -N 1  -n {NODES} -d 16 $worker_sh
-
-# Using ccmrun instead of aprun
-module load ccm
-ccmrun $worker_sh --hostfile=”$PBS_NODEFILE”
-
 # More examples
 # Run across more nodes :
 #
 # aprun  -N 1  -n 80 -d 16  ...
-# aprun  -N 1  -n 160 -d 16 
-# aprun  -N 1  -n 320 -d 16 
-# aprun  -N 1  -n 640 -d 16 
+# aprun  -N 1  -n 160 -d 16
+# aprun  -N 1  -n 320 -d 16
+# aprun  -N 1  -n 640 -d 16
 #
 #  Up_above:-lnodes=640:ppn=16:xe
+
+# Using ccmrun instead of aprun
+module load ccm
+ccmrun $ssh_and_launch
 
 sleep 10
 touch pbsPostAprun
 wait
 
 touch pbsPostWait
-date 
+date
