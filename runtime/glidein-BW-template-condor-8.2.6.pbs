@@ -69,10 +69,10 @@ ssh_and_launch={SCRATCH_PATH}/$PBS_JOBID/${jobid}_ssh_and_launch.sh
 cat > $ssh_and_launch <<EOF
 #!/bin/sh --norc
 # Get the nodes names and put the in random tmp file
-cat $PBS_NODEFILE  | sort -u > /tmp/ccm_nodelist_$$
+cat \$PBS_NODEFILE  | sort -u > /tmp/ccm_nodelist_\$\$
 
 # Here we loop over all the node available and ssh to them
-IFS=$'\n' read -d '' -r -a lines < /tmp/ccm_nodelist_$$
+IFS=$'\n' read -d '' -r -a lines < /tmp/ccm_nodelist_\$\$
 
 for i in "\${lines[@]}"
 do
