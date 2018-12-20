@@ -76,8 +76,8 @@ IFS=$'\n' read -d '' -r -a lines < /tmp/ccm_nodelist_$$
 
 for i in "\${lines[@]}"
 do
-   echo ssh \$i $ssh_and_launch
-   ssh \$i $ssh_and_launch &
+   echo ssh \$i $worker_sh
+   ssh \$i $worker_sh &
    sleep 10
 done
 echo "Done ssh to nodes"
