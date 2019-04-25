@@ -7,7 +7,7 @@ bin_files = ["bin/create-glidein",]
 
 # The main call
 setup(name='desglidein',
-      version ='0.2.4',
+      version ='0.3.2',
       license = "GPL",
       description = "Python function to create gliden in from condos/shell/pbs libraries",
       author = "Felipe Menanteau",

@@ -37,7 +37,8 @@ export _condor_RELEASE_DIR={CONDORSTRIPPED_DIR}
 export _condor_SHARED_PORT={CONDORSTRIPPED_DIR}/libexec/condor_shared_port
 export _condor_SBIN={CONDORSTRIPPED_DIR}/sbin
 
-export _condor_LOCAL_DIR={SCRATCH_PATH}/condor_local/desdm/${local_host_name}
+export _condor_USE_SHARED_PORT=False
+export _condor_LOCAL_DIR={SCRATCH_PATH}/cloc/${local_host_name}
 export _condor_NUM_CPUS={NCPU}
 export _condor_UID_DOMAIN=ncsa.illinois.edu
 export _condor_FILESYSTEM_DOMAIN=ncsa.illinois.edu
@@ -65,14 +66,14 @@ then
   echo "condor_master is already running on this node.";
   sleep 3600
 else
-  mkdir -p {SCRATCH_PATH}/condor_local
-  mkdir -p {SCRATCH_PATH}/condor_local/desdm
-  mkdir -p {SCRATCH_PATH}/condor_local/desdm/${local_host_name}
-  mkdir -p {SCRATCH_PATH}/condor_local/desdm/${local_host_name}/log
-  mkdir -p {SCRATCH_PATH}/condor_local/desdm/${local_host_name}/execute
+  mkdir -p {SCRATCH_PATH}/cloc
+  mkdir -p {SCRATCH_PATH}/cloc/${local_host_name}
+  mkdir -p {SCRATCH_PATH}/cloc/${local_host_name}/log
+  mkdir -p {SCRATCH_PATH}/cloc/${local_host_name}/spool
+  mkdir -p {SCRATCH_PATH}/cloc/${local_host_name}/execute
   echo "Script_Launching condor master";
   echo ${_condor_SBIN}/condor_master
-  ${_condor_SBIN}/condor_master -dyn -f -r {TIME_TO_LIVE}
+  ${_condor_SBIN}/condor_master -f -r {TIME_TO_LIVE}
 
 fi
 
