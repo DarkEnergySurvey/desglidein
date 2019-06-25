@@ -81,7 +81,22 @@ do
    sleep 10
 done
 echo "Done ssh to nodes"
-tail -f \$PBS_NODEFILE
+
+sleep 60
+for i in "\${lines[@]}"
+do
+   echo "Looping over Nodes for condor check: Node "
+   echo \$i
+   res=1
+   while [ \$res -eq 1 ]
+   do
+      res=\`ssh \$i pgrep -l condor_master | wc -l\`
+      echo \$res
+      echo "Sleep 60"
+      sleep 60
+   done
+done
+echo "Condor has exited on all glide-in nodes; manager script & PBS job exiting"
 EOF
 chmod a+xr $ssh_and_launch
 # -----------------------------------------------------------------
