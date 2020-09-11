@@ -56,7 +56,7 @@ export _condor_CCB_ADDRESS={IP_SUBMIT_SITE}
 {condor_START}
 
 # Hack to add extra missing libs
-export LD_LIBRARY_PATH=/u/sciteam/daues/condor/pcre/install/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/mnt/b/projects/sciteam/bbcb/des/extralibs/install/lib:$LD_LIBRARY_PATH
 
 psef=`ps -ef | grep condor`
 echo psef
